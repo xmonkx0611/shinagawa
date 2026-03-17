@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東京與千葉：賞櫻、名城與都會美食深度之旅</title>
+    <title>東京與千葉：台日交流、賞櫻名城與都會美食之旅</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -21,25 +21,28 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background-color: #3b82f6;
-            border: 3px solid #eff6ff;
+            background-color: #10b981;
+            border: 3px solid #ecfdf5;
         }
         .day-content { display: none; }
         .day-content.active { display: block; }
-        iframe { border: 0; border-radius: 0.5rem; width: 100%; height: 200px; }
+        iframe { border: 0; border-radius: 0.5rem; width: 100%; height: 250px; }
+        .taxi-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 0.75rem; border-radius: 0.25rem; margin-top: 0.5rem; }
+        .map-link { color: #059669; font-weight: 700; text-decoration: underline; text-decoration-color: #a7f3d0; text-underline-offset: 4px; transition: all 0.2s;}
+        .map-link:hover { color: #047857; text-decoration-color: #059669; }
     </style>
 </head>
 <body class="text-slate-800">
 
     <!-- 頂部導覽列 -->
-    <nav class="bg-blue-600 text-white sticky top-0 z-50 shadow-md">
+    <nav class="bg-emerald-600 text-white sticky top-0 z-50 shadow-md">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
-                <div class="font-bold text-xl tracking-wider">🌸 2026 東京近郊春櫻行</div>
+                <div class="font-bold text-xl tracking-wider">🌸 2026 台日交流名城行 (長青版)</div>
                 <div class="flex space-x-1 overflow-x-auto">
-                    <button onclick="switchTab('overview')" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-700 bg-blue-800 font-medium">📋 行程總覽</button>
-                    <button onclick="switchTab('itinerary')" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-700 font-medium">📅 每日行程</button>
-                    <button onclick="switchTab('food')" class="nav-btn px-4 py-2 rounded-md hover:bg-blue-700 font-medium">🍜 美食與購物</button>
+                    <button onclick="switchTab('overview')" class="nav-btn px-4 py-2 rounded-md hover:bg-emerald-700 bg-emerald-800 font-medium">📋 行程總覽</button>
+                    <button onclick="switchTab('itinerary')" class="nav-btn px-4 py-2 rounded-md hover:bg-emerald-700 font-medium">📅 每日行程</button>
+                    <button onclick="switchTab('food')" class="nav-btn px-4 py-2 rounded-md hover:bg-emerald-700 font-medium">🍜 美食與周邊機能</button>
                 </div>
             </div>
         </div>
@@ -51,7 +54,13 @@
         <!-- 區塊 1: 行程總覽 -->
         <section id="overview" class="tab-content active">
             <div class="bg-white rounded-2xl shadow-sm p-6 mb-8 border border-slate-200">
-                <h2 class="text-2xl font-bold mb-6 border-b pb-2 text-blue-800">📌 基本資訊</h2>
+                <div class="bg-amber-100 text-amber-800 p-4 rounded-xl mb-6 font-medium flex items-center">
+                    <span class="text-2xl mr-3">🚕</span>
+                    <div>
+                        <strong>長者友善宣告：</strong> 本行程專為 70 歲男性設計。已大幅減少步行與車站內轉乘。自由行時段將全面導入「計程車代步」方案，以金錢換取體力，確保旅遊品質與安全。
+                    </div>
+                </div>
+                <h2 class="text-2xl font-bold mb-6 border-b pb-2 text-emerald-800">📌 旅遊基本資訊</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <ul class="space-y-3 text-slate-600">
                         <li><strong>📍 目的地：</strong> 日本 千葉縣 (南房總) & 東京都 (台場、品川)</li>
@@ -65,19 +74,25 @@
                         </li>
                     </ul>
                     <ul class="space-y-3 text-slate-600">
-                        <li><strong>🏰 必去景點：</strong> <a href="https://kokyo-gaien.info/" target="_blank" class="text-blue-600 underline">江戶城跡 (百大名城)</a>、<a href="https://www.meijijingu.or.jp/" target="_blank" class="text-blue-600 underline">明治神宮</a>、品川神社</li>
-                        <li><strong>🍽️ 必吃美食：</strong> 一蘭拉麵、HARBS、六厘舍沾麵、敘敘苑</li>
-                        <li><strong>🏨 住宿風格與預算：</strong> 交通至上，個人預算 $50~$80 USD/晚。</li>
-                        <li><strong>🎒 旅行風格：</strong> 文化探索、美食踩點、悠閒購物。</li>
+                        <li><strong>🏰 必去景點：</strong> <a href="https://maps.google.com/?cid=17277458782772095920" target="_blank" class="map-link">江戸城跡 (皇居東御苑)</a>、<a href="https://maps.google.com/?cid=10361244767556222835" target="_blank" class="map-link">明治神宮</a>、<a href="https://maps.google.com/?cid=16950650631033465316" target="_blank" class="map-link">品川神社</a></li>
+                        <li><strong>🍽️ 必吃餐廳：</strong> <a href="https://maps.google.com/?cid=1092125928485198446" target="_blank" class="map-link">一蘭 (渋谷店)</a>、<a href="https://maps.google.com/?cid=9524411071496141695" target="_blank" class="map-link">HARBS</a>、<a href="https://maps.google.com/?cid=9740262561065635615" target="_blank" class="map-link">六厘舎</a>、<a href="https://maps.google.com/?cid=10378071439578218413" target="_blank" class="map-link">叙々苑 品川プリンスホテル店</a></li>
+                        <li><strong>🏨 住宿資訊 (依表定)：</strong> 
+                            <ul class="ml-6 mt-1 text-sm list-decimal text-indigo-700 font-medium space-y-1">
+                                <li><a href="https://maps.google.com/?cid=636192603849054469" target="_blank" class="hover:underline">グランドメルキュール南房総リゾート＆スパ</a> (4/10)</li>
+                                <li><a href="https://maps.google.com/?cid=11304485763304987514" target="_blank" class="hover:underline">ヒルトン東京お台場</a> (4/11, 4/12)</li>
+                                <li><a href="https://maps.google.com/?cid=8514892045408078256" target="_blank" class="hover:underline">品川プリンスホテル</a> (4/13, 4/14)</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
-                <h2 class="text-2xl font-bold mb-4 text-blue-800">📊 交通花費與時間分析</h2>
+                <h2 class="text-2xl font-bold mb-4 text-emerald-800">📊 Day 5 自由行：大眾運輸 vs 計程車 費用評估</h2>
                 <div class="w-full max-w-2xl mx-auto">
                     <canvas id="transportChart"></canvas>
                 </div>
+                <p class="text-sm text-slate-500 text-center mt-4">註：日本計程車起跳價約為 ¥500。若兩人同行，計程車費分攤後 CP 值極高，且能省去大量站內步行時間。</p>
             </div>
         </section>
 
@@ -85,7 +100,7 @@
         <section id="itinerary" class="tab-content">
             <!-- 次級導覽列 (天數切換) -->
             <div class="flex overflow-x-auto space-x-2 mb-6 pb-2 border-b border-slate-200">
-                <button onclick="switchDay('day1')" class="day-btn px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-bold">4/10 Day 1</button>
+                <button onclick="switchDay('day1')" class="day-btn px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full font-bold">4/10 Day 1</button>
                 <button onclick="switchDay('day2')" class="day-btn px-4 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold">4/11 Day 2</button>
                 <button onclick="switchDay('day3')" class="day-btn px-4 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold">4/12 Day 3</button>
                 <button onclick="switchDay('day4')" class="day-btn px-4 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold">4/13 Day 4</button>
@@ -95,213 +110,150 @@
 
             <!-- Day 1 -->
             <div id="day1" class="day-content active">
-                <h3 class="text-xl font-bold mb-4 text-blue-700">Day 1：抵達日本、前進南房總溫泉鄉</h3>
-                <div class="pl-8 border-l-2 border-blue-200 relative space-y-8">
+                <h3 class="text-xl font-bold mb-4 text-emerald-700">Day 1：抵達日本、大會巴士直達南房總</h3>
+                <div class="pl-8 border-l-2 border-emerald-200 relative space-y-8">
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">09:00 - 13:25</span>
-                        <h4 class="text-lg font-bold text-slate-800">✈️ 啟程前往成田機場 (NRT)</h4>
-                        <p class="text-slate-600 mt-2">搭乘長榮 BR198 班機。表定 13:25 抵達成田機場第一航廈。</p>
-                        <p class="text-sm text-slate-500 bg-slate-100 p-2 rounded mt-2"><strong>🍽️ 午餐：</strong> 機上餐點 (約 10:30 提供)</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">09:00 - 13:25</span>
+                        <h4 class="text-lg font-bold text-slate-800">✈️ 桃園機場 ➔ 成田機場</h4>
+                        <p class="text-slate-600 mt-2">搭乘長榮 BR198 班機。<br><span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded">🍽️ 午餐：10:30 機上套餐</span></p>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">14:30 - 17:10</span>
-                        <h4 class="text-lg font-bold text-slate-800">🚆 前往南房總 (富浦)</h4>
-                        <p class="text-slate-600 mt-2">因應長途跋涉，建議在機場將大件行李使用「宅配便」直接寄到 D4 的品川飯店，只帶輕便行囊前往南房總。<br>
-                        <strong>交通：</strong> 成田機場站搭乘「JR成田線快速」至千葉站 (轉乘)，再轉「JR內房線」至富浦站。車程約 2.5 小時，花費 ¥1,980。<br>
-                        <em>(備註：成田機場出發 14:43 發車 ➔ 15:26 抵達千葉 ➔ 15:35 千葉發車 ➔ 17:09 抵達富浦)</em></p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">14:30 - 17:00</span>
+                        <h4 class="text-lg font-bold text-slate-800">🚌 大會巴士前往南房總</h4>
+                        <p class="text-slate-600 mt-2">免去拖拉行李的困擾，直接搭乘專車前往溫泉鄉。</p>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">17:30 - 18:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🏨 辦理入住</h4>
-                        <p class="text-slate-600 mt-2"><strong>住宿：</strong> 南房總美爵溫泉度假酒店 (原富浦皇家酒店)。若該酒店超出 $80 預算，可考慮車站附近的 <em>Tomiura Royal Inn</em> 或是將住宿改至千葉市區的 <em>Sotetsu Fresa Inn Chiba</em> (約 $55/晚)。</p>
-                        <iframe src="https://maps.google.com/maps?q=Grand+Mercure+Minamiboso+Resort&output=embed" class="mt-2"></iframe>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">18:30 - 20:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 晚餐：在地海鮮饗宴</h4>
-                        <p class="text-slate-600 mt-2"><strong>推薦：</strong> 飯店內會席料理，或周邊海鮮定食店（如：海鮮食堂 網元）。<br>
-                        <strong>周邊補給：</strong> 飯店附近有 7-Eleven 富浦站前店可採買宵夜與隔日飲水。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">17:30 - 18:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">🏨 入住：<a href="https://maps.google.com/?cid=636192603849054469" target="_blank" class="map-link">グランドメルキュール南房総リゾート＆スパ</a></h4>
+                        <p class="text-slate-600 mt-2">在飯店內好好泡湯，舒緩飛行疲勞。若需補給，飯店周邊有 <a href="https://maps.google.com/?cid=4095811367164949204" target="_blank" class="map-link text-sm">セブン-イレブン 富浦駅前店</a> 與 <a href="https://maps.google.com/?cid=16307561303363457079" target="_blank" class="map-link text-sm">おどや 富浦店</a>。</p>
+                        <iframe src="https://maps.google.com/maps?q=グランドメルキュール南房総リゾート＆スパ&output=embed" class="mt-2"></iframe>
                     </div>
                 </div>
             </div>
 
             <!-- Day 2 -->
             <div id="day2" class="day-content">
-                <h3 class="text-xl font-bold mb-4 text-blue-700">Day 2：館山海景與台場都會風情</h3>
-                <div class="pl-8 border-l-2 border-blue-200 relative space-y-8">
+                <h3 class="text-xl font-bold mb-4 text-emerald-700">Day 2：櫻花交流會與進駐台場 (大會專車)</h3>
+                <div class="pl-8 border-l-2 border-emerald-200 relative space-y-8">
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">07:30 - 08:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 早餐：飯店享用</h4>
-                        <p class="text-slate-600 mt-2">享用飯店自助餐，準備充實的一天。</p>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">09:00 - 11:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🏯 館山城 (里見八犬傳舞台) 與賞櫻</h4>
-                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 從富浦站搭 JR 內房線至館山站 (約 10 分鐘，¥200)，轉乘巴士或計程車至城山公園。<br>
-                        <strong>說明：</strong> 雖非百大名城，但館山城天守閣可俯瞰東京灣，是《里見八犬傳》的歷史舞台，春季更是南房總賞櫻名所。</p>
-                        <a href="https://tsukamoto-sogyo.co.jp/tateyamajo/" target="_blank" class="text-blue-500 text-sm hover:underline">🔗 館山城官方網站</a>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">12:00 - 14:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🚆 移動至東京台場 & 🍽️ 午餐</h4>
-                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 館山站搭乘高速巴士「房總菜花號 (Boso Nanohana)」直達東京車站 (約 2小時，¥2,600)。從東京站轉乘 JR 山手線至新橋，再轉「百合海鷗號」至台場 (約 30分，¥490)。<br>
-                        <strong>午餐：</strong> 台場 Aqua City 內的「拉麵國技館」，集合日本多種流派拉麵 (推薦: 豚骨魚介沾麵)。</p>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">14:30 - 15:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🏨 辦理入住：相鐵 Grand Fresa 東京灣有明</h4>
-                        <p class="text-slate-600 mt-2"><strong>住宿說明：</strong> 原行程之「台場希爾頓」遠超 $50-$80 預算。強烈推薦同在台場區域的 <em>相鐵 Grand Fresa 東京灣有明 (Sotetsu Grand Fresa Tokyo-Bay Ariake)</em>，預算約 $60-$80/晚，交通極佳 (臨海線 國際展示場站 步行 3分)。</p>
-                        <iframe src="https://maps.google.com/maps?q=Sotetsu+Grand+Fresa+Tokyo-Bay+Ariake&output=embed" class="mt-2"></iframe>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">16:00 - 20:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🛍️ 台場散策與鋼彈朝聖</h4>
-                        <p class="text-slate-600 mt-2">漫步台場海濱公園賞獨角獸鋼彈。周邊可逛 DiverCity。<br>
-                        <strong>🍽️ 晚餐：</strong> 建議在 DiverCity 美食街或和幸豬排用餐。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">全日活動</span>
+                        <h4 class="text-lg font-bold text-slate-800">🌸 櫻花交流會 & 🏨 <a href="https://maps.google.com/?cid=11304485763304987514" target="_blank" class="map-link">ヒルトン東京お台場</a></h4>
+                        <p class="text-slate-600 mt-2">全日跟隨大會巴士移動。傍晚入住台場希爾頓，享受無敵海景。附近有 <a href="https://maps.google.com/?cid=7619256481534029525" target="_blank" class="map-link text-sm">ローソン アクアシティお台場店</a> 方便購物。</p>
+                        <iframe src="https://maps.google.com/maps?q=ヒルトン東京お台場&output=embed" class="mt-2"></iframe>
                     </div>
                 </div>
             </div>
 
             <!-- Day 3 -->
             <div id="day3" class="day-content">
-                <h3 class="text-xl font-bold mb-4 text-blue-700">Day 3：明治神宮祈福與涉谷原宿潮流</h3>
-                <div class="pl-8 border-l-2 border-blue-200 relative space-y-8">
+                <h3 class="text-xl font-bold mb-4 text-emerald-700">Day 3：明治神宮祈福與演唱會 (大會專車)</h3>
+                <div class="pl-8 border-l-2 border-emerald-200 relative space-y-8">
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">08:00 - 09:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 早餐：周邊超商或咖啡廳</h4>
-                        <p class="text-slate-600 mt-2"><strong>補給提示：</strong> 飯店一樓即有 Lawson 便利商店，附近亦有 Daily Yamazaki。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">上午</span>
+                        <h4 class="text-lg font-bold text-slate-800">⛩️ 與博士同遊「<a href="https://maps.google.com/?cid=10361244767556222835" target="_blank" class="map-link">明治神宮</a>」</h4>
+                        <p class="text-slate-600 mt-2">搭乘專車抵達。神宮內多為碎石子路，建議穿著舒適厚底氣墊鞋。</p>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">09:30 - 12:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">⛩️ 參拜 <a href="https://www.meijijingu.or.jp/" target="_blank" class="text-blue-600 underline">明治神宮</a> (超人氣神社)</h4>
-                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 臨海線「國際展示場站」直通運轉 JR 埼京線，直達「新宿站」，轉山手線一站至「原宿站」下車 (約 35分，¥510)。<br>
-                        <strong>重點：</strong> 東京最具代表性的神宮。請務必購買極具人氣的<strong>「開運木鈴 こだま (Kodama)」</strong>御守，以神宮林神木製成，音色清脆。<br>
-                        <em>建議停留時間：1.5 - 2 小時。</em></p>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">12:30 - 14:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 午餐：AFURI 阿夫利 (原宿店)</h4>
-                        <p class="text-slate-600 mt-2">清爽系「柚子鹽拉麵」，帶有淡淡柑橘香氣，深受女性與各國旅客喜愛。若遇排隊，可轉往表參道方向覓食。</p>
-                        <iframe src="https://maps.google.com/maps?q=AFURI+Harajuku&output=embed" class="mt-2"></iframe>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">14:30 - 18:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🛍️ 涉谷巡禮：電器與甜點</h4>
-                        <p class="text-slate-600 mt-2">搭乘一站地鐵來到涉谷。<br>
-                        <strong>🍰 必吃甜點：</strong> <a href="https://www.harbs.co.jp/" target="_blank" class="text-blue-500 underline">HARBS (涉谷 Hikarie 店)</a> - 招牌水果千層蛋糕是絕品。<br>
-                        <strong>🔌 購物：</strong> Bic Camera 涉谷八公口店。出示護照可享 10% 加上 7% 折扣。<br>
-                        <strong>🛒 雜貨：</strong> MEGA Don Quijote 涉谷本店 (驚安殿堂 唐吉訶德)，24小時營業，買伴手禮首選。</p>
-                        <iframe src="https://maps.google.com/maps?q=Bic+Camera+Shibuya+Hachikoguchi&output=embed" class="mt-2"></iframe>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">19:00 - 20:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 晚餐：一蘭拉麵 (涉谷店) 或 燒肉</h4>
-                        <p class="text-slate-600 mt-2">經典的豚骨拉麵系統，獨立座位設計。用完餐後搭乘臨海線返回有明飯店。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">下午至晚間</span>
+                        <h4 class="text-lg font-bold text-slate-800">🎤 楊烈演唱會 & 慶功宴</h4>
                     </div>
                 </div>
             </div>
 
             <!-- Day 4 -->
             <div id="day4" class="day-content">
-                <h3 class="text-xl font-bold mb-4 text-blue-700">Day 4：百大名城江戶城與品川風情</h3>
-                <div class="pl-8 border-l-2 border-blue-200 relative space-y-8">
+                <h3 class="text-xl font-bold mb-4 text-emerald-700">Day 4：企業參訪與品川都會生活</h3>
+                <div class="pl-8 border-l-2 border-emerald-200 relative space-y-8">
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">08:30 - 09:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🏨 退房與轉移陣地 (前往品川)</h4>
-                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 臨海線至「大崎站」轉乘 JR 山手線至「品川站」 (約 20分，¥340)。<br>
-                        <strong>住宿：</strong> 品川王子大飯店 (Shinagawa Prince Hotel)。地理位置極佳，符合轉乘便利性。辦理入住並領取 Day 1 寄送的行李。<br>
-                        <strong>周邊：</strong> 飯店內就有 7-Eleven 與松本清藥妝店。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">09:00 - 11:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">🏨 台場退房 ➔ 巴士前往品川飯店</h4>
+                        <p class="text-slate-600 mt-2">搭乘巴士進駐 <a href="https://maps.google.com/?cid=8514892045408078256" target="_blank" class="map-link">品川プリンスホテル</a>。</p>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">10:00 - 12:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🏰 百大名城：<a href="https://kokyo-gaien.info/" target="_blank" class="text-blue-600 underline">江戶城跡 (皇居東御苑)</a></h4>
-                        <p class="text-slate-600 mt-2"><strong>⭐ 特別標註：百大名城 第21號</strong><br>
-                        <strong>交通：</strong> 品川站搭乘 JR 橫須賀線或山手線至「東京站」，步行至大手門。<br>
-                        <strong>說明：</strong> 參觀德川將軍家的居城遺址，百大名城印章設置於「楠公休憩所」或「和田倉休憩所」。<br>
-                        <em>建議停留時間：2 小時。</em></p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">13:30 - 18:00</span>
+                        <h4 class="text-lg font-bold text-slate-800">🏢 【TS 東京品川公司】專業課程</h4>
+                        <p class="text-slate-600 mt-2">於公司內參與課程。</p>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">13:00 - 14:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 午餐：六厘舍沾麵 (東京車站一番街)</h4>
-                        <p class="text-slate-600 mt-2">日本代表性的濃厚豚骨魚介沾麵，麵條極具彈性。位於東京車站一番街「東京拉麵街」內。</p>
-                        <iframe src="https://maps.google.com/maps?q=Rokurinsha+Tokyo+Station&output=embed" class="mt-2"></iframe>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">15:00 - 16:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">⛩️ 品川神社與品川富士</h4>
-                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 返回品川站後，搭乘京急本線一站至「新馬場站」。<br>
-                        <strong>說明：</strong> 擁有罕見的「雙龍鳥居」。境內有一座高約 15 公尺的「品川富士 (富士塚)」，爬上去等同於攀登富士山的功德！御守以祈求金運的「一粒萬倍」御守最為人氣。</p>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">18:00 - 20:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 晚餐：敘敘苑 (品川王子大飯店店)</h4>
-                        <p class="text-slate-600 mt-2">知名的高級燒肉店，正好位於您住宿的飯店內，享受高品質的黑毛和牛，結束充實的一天。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">18:30 - 20:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">🍽️ 晚餐：<a href="https://maps.google.com/?cid=10378071439578218413" target="_blank" class="map-link">叙々苑 品川プリンスホテル店</a></h4>
+                        <p class="text-slate-600 mt-2">課程結束後，犒賞自己。叙々苑就在飯店 N Tower 內，<strong>完全不需搭車或長時間步行</strong>，對長輩極度友善！</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Day 5 -->
+            <!-- Day 5 (Free Time - Taxi Optimized) -->
             <div id="day5" class="day-content">
-                <h3 class="text-xl font-bold mb-4 text-blue-700">Day 5：阿美橫町採買與秋葉原次文化</h3>
-                <div class="pl-8 border-l-2 border-blue-200 relative space-y-8">
+                <h3 class="text-xl font-bold mb-4 text-emerald-700">Day 5：自由行 (名城、神宮、美食) 🚕 計程車優化版</h3>
+                <p class="mb-4 text-slate-600">本區段已為您排除複雜的車站轉乘與徒步，確保體力能花在欣賞景點上。</p>
+                <div class="pl-8 border-l-2 border-emerald-200 relative space-y-8">
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">08:00 - 09:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 早餐：The City Bakery (品川站內)</h4>
-                        <p class="text-slate-600 mt-2">推薦品川站內的超人氣麵包店，必吃「海鹽可頌 (Pretzel Croissant)」。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">10:00 - 12:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">🏢 【TS 東京品川公司】課程</h4>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">10:00 - 13:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🛍️ 上野阿美橫町 & 多慶屋 (Takeya)</h4>
-                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 品川站搭乘 JR 山手線至「御徒町站」或「上野站」 (約 20分，¥200)。<br>
-                        <strong>說明：</strong> 上野是採買零食伴手禮的最佳地點。強烈推薦紫色大樓的<strong>「多慶屋 (Takeya)」</strong>，從食品、藥妝到名牌包應有盡有，且支援退稅，價格極度親民。<br>
-                        <em>建議伴手禮：KitKat 抹茶口味、呼吸巧克力、各式藥妝。</em></p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">12:30 - 14:00</span>
+                        <h4 class="text-lg font-bold text-slate-800">🍽️ 午餐：<a href="https://maps.google.com/?cid=9740262561065635615" target="_blank" class="map-link">六厘舎</a> (東京車站一番街)</h4>
+                        <div class="taxi-box">
+                            <strong class="text-amber-700 block mb-1">🚕 移動建議：品川飯店 ➔ 東京車站八重洲口</strong>
+                            <p class="text-sm text-amber-900">若搭乘 JR 雖快，但東京車站內部極大，走到拉麵街需步行 10-15 分鐘。建議直接請飯店門僮代叫計程車直達「東京車站 八重洲南口」。<br>
+                            <strong>⏳ 車程：約 20 分鐘 | 💰 車資預估：約 ¥3,500</strong></p>
+                        </div>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">13:30 - 14:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 午餐：名代 宇奈とと (上野店)</h4>
-                        <p class="text-slate-600 mt-2">超高 CP 值的炭火烤鰻魚飯，一碗只要 ¥590 起。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">14:30 - 16:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">🏰 百大名城：<a href="https://maps.google.com/?cid=17277458782772095920" target="_blank" class="map-link">江戸城跡 (皇居東御苑)</a></h4>
+                        <p class="text-slate-600 mt-2">德川幕府的歷史中樞。名城印章可於「楠公休憩所」蓋取。</p>
+                        <div class="taxi-box">
+                            <strong class="text-amber-700 block mb-1">🚕 移動建議：東京車站 ➔ 皇居大手門</strong>
+                            <p class="text-sm text-amber-900">距離約 1.5 公里，長者步行需 20 分鐘。建議直接在車站外排班區搭乘計程車。<br>
+                            <strong>⏳ 車程：約 5 分鐘 | 💰 車資預估：約 ¥500 - ¥600 (起跳價)</strong></p>
+                        </div>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">15:00 - 18:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">⚡ 秋葉原 Yodobashi Camera 朝聖</h4>
-                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 御徒町搭一站山手線即達秋葉原。<br>
-                        <strong>說明：</strong> Yodobashi Akiba 是日本最大級別的家電量販店，模型、扭蛋、動漫周邊一應俱全。逛累了可在頂樓美食街稍作休息。</p>
-                        <iframe src="https://maps.google.com/maps?q=Yodobashi+Camera+Akiba&output=embed" class="mt-2"></iframe>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">17:00 - 18:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">⛩️ <a href="https://maps.google.com/?cid=16950650631033465316" target="_blank" class="map-link">品川神社</a> (雙龍鳥居與一粒萬倍御守)</h4>
+                        <p class="text-slate-600 mt-2"><strong>⚠️ 長者特別注意：</strong> 品川神社正面有極其陡峭的長階梯。請務必請計程車司機開到<strong>「後方的停車場坡道 (女坂)」</strong>或直接駛入神社旁，避免攀爬陡坡。</p>
+                        <div class="taxi-box">
+                            <strong class="text-amber-700 block mb-1">🚕 移動建議：皇居大手門 ➔ 品川神社</strong>
+                            <p class="text-sm text-amber-900">距離約 8 公里。傍晚搭乘電車遇上下班人潮會非常辛苦，建議直接叫計程車。<br>
+                            <strong>⏳ 車程：約 25 分鐘 | 💰 車資預估：約 ¥3,500 - ¥4,500</strong></p>
+                        </div>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">18:30 - 20:00</span>
-                        <h4 class="text-lg font-bold text-slate-800">🍽️ 晚餐：居酒屋 酒藏 駒八 (品川港南口)</h4>
-                        <p class="text-slate-600 mt-2">返回品川。在港南口的傳統居酒屋享用串燒與生啤酒，體驗日本上班族的下班日常。<br>
-                        <strong>超市補給：</strong> 晚餐後可至品川站旁的「京急超市 (Keikyu Store)」購買水果與明日早餐。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">19:00 - 20:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">🍽️ 晚餐：<a href="https://maps.google.com/?cid=1092125928485198446" target="_blank" class="map-link">一蘭 (渋谷店)</a> 或 <a href="https://maps.google.com/?cid=17701237887855484490" target="_blank" class="map-link">THE CITY BAKERY</a></h4>
+                        <p class="text-slate-600 mt-2">為了減少勞累，若想吃一蘭可前往渋谷店，或者回到品川站周邊享用美食，並外帶甜點 <a href="https://maps.google.com/?cid=9524411071496141695" target="_blank" class="map-link text-sm">ハーブス (HARBS)</a> 回飯店品嚐。</p>
+                        <div class="taxi-box">
+                            <strong class="text-amber-700 block mb-1">🚕 移動建議：品川神社 ➔ 品川車站飯店</strong>
+                            <p class="text-sm text-amber-900">距離僅 1.5 公里。<br>
+                            <strong>⏳ 車程：約 5 分鐘 | 💰 車資預估：約 ¥800 - ¥1,000</strong></p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Day 6 -->
             <div id="day6" class="day-content">
-                <h3 class="text-xl font-bold mb-4 text-blue-700">Day 6：滿載而歸、成田機場特快</h3>
-                <div class="pl-8 border-l-2 border-blue-200 relative space-y-8">
+                <h3 class="text-xl font-bold mb-4 text-emerald-700">Day 6：無負擔賦歸、成田機場特快</h3>
+                <div class="pl-8 border-l-2 border-emerald-200 relative space-y-8">
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">07:30 - 08:30</span>
-                        <h4 class="text-lg font-bold text-slate-800">🏨 飯店退房 & 🍽️ 早餐</h4>
-                        <p class="text-slate-600 mt-2">享用昨晚在超市購買的餐點，整理行李辦理退房。品川王子大飯店步行至品川站只需 3 分鐘。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">07:30 - 08:30</span>
+                        <h4 class="text-lg font-bold text-slate-800">🍽️ 早餐：飯店內用或大廳烘焙坊</h4>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">08:45 - 10:25</span>
-                        <h4 class="text-lg font-bold text-slate-800">🚆 搭乘 N'EX 成田特快前往機場</h4>
-                        <p class="text-slate-600 mt-2"><strong>重要提醒：</strong> 航班為 13:25 起飛，務必在 <strong>10:55 前 (起飛前2.5小時)</strong> 抵達機場。<br>
-                        <strong>交通：</strong> 品川站 [13號月台] 搭乘 JR 成田特快 (N'EX) 第13號 [09:12 發車] ➔ [10:25 抵達成田機場第一航廈]。(車程 1小時13分，費用 ¥3,250)。<br>
-                        此班車可保證您在 10:25 抵達，完全符合時間規範！</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">08:45 - 10:25</span>
+                        <h4 class="text-lg font-bold text-slate-800">🚆 飯店退房 ➔ 搭乘 N'EX 成田特快前往機場</h4>
+                        <div class="taxi-box mb-2">
+                            <strong class="text-amber-700 block mb-1">🚕 移動建議：飯店大廳 ➔ 品川站改札口</strong>
+                            <p class="text-sm text-amber-900">若行李較多，即使只有 3 分鐘路程，也建議花 ¥500 請計程車載至車站門口，將體力留給機場登機手續。</p>
+                        </div>
+                        <p class="text-slate-600 mt-2"><strong>交通：</strong> 品川站搭乘 JR 成田特快 (N'EX) 第13號 [09:12 發車] ➔ [10:25 抵達成田機場第一航廈]。(費用 ¥3,250)。完全不用換車，可在車上舒適補眠。</p>
                     </div>
                     <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">10:30 - 12:45</span>
-                        <h4 class="text-lg font-bold text-slate-800">✈️ 機場報到與免稅店最後採購</h4>
-                        <p class="text-slate-600 mt-2">完成報到手續後，可在成田機場第一航廈購買東京芭娜娜、白色戀人等伴手禮。</p>
-                    </div>
-                    <div class="timeline-item relative">
-                        <span class="text-sm font-bold text-blue-600 block mb-1">13:25 - 16:05</span>
-                        <h4 class="text-lg font-bold text-slate-800">✈️ 賦歸：長榮 BR183</h4>
-                        <p class="text-slate-600 mt-2">表定 16:05 抵達台灣桃園國際機場 (TPE)，帶著滿滿的回憶結束旅程。</p>
+                        <span class="text-sm font-bold text-emerald-600 block mb-1">13:25 - 16:05</span>
+                        <h4 class="text-lg font-bold text-slate-800">✈️ 溫暖的家：長榮 BR183</h4>
+                        <p class="text-slate-600 mt-2">抵達台灣桃園國際機場，結束輕鬆愜意的旅程。</p>
                     </div>
                 </div>
             </div>
@@ -309,44 +261,73 @@
 
         <!-- 區塊 3: 美食地圖 -->
         <section id="food" class="tab-content">
-            <h2 class="text-2xl font-bold mb-6 text-blue-800">🍜 美食與店鋪整理</h2>
+            <h2 class="text-2xl font-bold mb-6 text-emerald-800">🍜 美食與周邊機能整理</h2>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- 拉麵系列 -->
                 <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
-                    <h3 class="text-xl font-bold mb-3 border-b pb-2">🍜 人氣拉麵店</h3>
+                    <h3 class="text-xl font-bold mb-3 border-b pb-2">🍜 推薦美食</h3>
                     <ul class="space-y-4">
                         <li>
-                            <strong>AFURI 阿夫利 (原宿店)</strong> <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">柚子鹽系</span>
-                            <p class="text-sm text-slate-600 mt-1">清爽系霸主，適合不喜歡濃郁豚骨的人。<br>營業時間：10:30–23:00</p>
+                            <strong><a href="https://maps.google.com/?cid=9740262561065635615" target="_blank" class="map-link">六厘舎 (東京駅)</a></strong> <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">魚介沾麵</span>
+                            <p class="text-sm text-slate-600 mt-1">極太麵條配上超濃厚沾汁。可搭計程車至八重洲口即可少走冤枉路。</p>
                         </li>
                         <li>
-                            <strong>六厘舍 (東京車站一番街)</strong> <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">魚介豚骨沾麵</span>
-                            <p class="text-sm text-slate-600 mt-1">超濃厚沾汁配上極太麵條。<br>營業時間：07:30–09:30, 10:00–22:30</p>
+                            <strong><a href="https://maps.google.com/?cid=10378071439578218413" target="_blank" class="map-link">叙々苑 品川プリンスホテル店</a></strong> <span class="text-xs bg-red-100 px-2 py-1 rounded text-red-700">高級燒肉</span>
+                            <p class="text-sm text-slate-600 mt-1">就在住宿的品川飯店 N Tower 內，免走路享受頂級和牛。</p>
                         </li>
                         <li>
-                            <strong>一蘭拉麵 (涉谷店)</strong> <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">豚骨系</span>
-                            <p class="text-sm text-slate-600 mt-1">經典豚骨，味覺集中座位。<br>營業時間：24小時營業</p>
+                            <strong><a href="https://maps.google.com/?cid=9570948828184358458" target="_blank" class="map-link">海鮮食堂 網元 (富浦)</a></strong> <span class="text-xs bg-blue-100 px-2 py-1 rounded text-blue-700">在地海鮮</span>
+                            <p class="text-sm text-slate-600 mt-1">若南房總飯店周邊需覓食，這裡是絕佳備案。</p>
                         </li>
                     </ul>
                 </div>
 
-                <!-- 購物與甜點 -->
+                <!-- 購物與電器 -->
                 <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
-                    <h3 class="text-xl font-bold mb-3 border-b pb-2">🛍️ 甜點與購物中心</h3>
+                    <h3 class="text-xl font-bold mb-3 border-b pb-2">🛒 購物與電器行</h3>
                     <ul class="space-y-4">
                         <li>
-                            <strong>HARBS (涉谷 Hikarie 店)</strong> <span class="text-xs bg-pink-100 px-2 py-1 rounded text-pink-700">人氣甜點</span>
-                            <p class="text-sm text-slate-600 mt-1">必吃水果千層蛋糕。<br>營業時間：11:00–20:00</p>
+                            <strong><a href="https://maps.google.com/?cid=14448886288421635612" target="_blank" class="map-link">ビックカメラ (Bic Camera 渋谷東口店別館)</a></strong>
+                            <p class="text-sm text-slate-600 mt-1">若前往渋谷，可在此購入免稅電器。</p>
                         </li>
                         <li>
-                            <strong>Bic Camera (涉谷八公口店)</strong> <span class="text-xs bg-blue-100 px-2 py-1 rounded text-blue-700">大型電器</span>
-                            <p class="text-sm text-slate-600 mt-1">電器、相機、藥妝齊全。<br>營業時間：10:00–22:00</p>
-                            <iframe src="https://maps.google.com/maps?q=Bic+Camera+Shibuya+Hachikoguchi&output=embed" class="mt-2 h-24"></iframe>
+                            <strong><a href="https://maps.google.com/?cid=4929179893758940649" target="_blank" class="map-link">AirBicCamera (アクアシティお台場店)</a></strong>
+                            <p class="text-sm text-slate-600 mt-1">台場住宿期間步行可達的小型精緻電器行。</p>
                         </li>
                         <li>
-                            <strong>多慶屋 Takeya (御徒町)</strong> <span class="text-xs bg-purple-100 px-2 py-1 rounded text-purple-700">綜合免稅店</span>
-                            <p class="text-sm text-slate-600 mt-1">買零食伴手禮最划算的紫色大樓。<br>營業時間：10:00–19:00</p>
+                            <strong><a href="https://maps.google.com/?cid=8915183078415758198" target="_blank" class="map-link">ヨドバシカメラ マルチメディアAkiba</a></strong>
+                            <p class="text-sm text-slate-600 mt-1">秋葉原指標性大型旗艦店。</p>
+                        </li>
+                        <li>
+                            <strong><a href="https://maps.google.com/?cid=15725589533456825868" target="_blank" class="map-link">多慶屋 (Takeya)</a></strong>
+                            <p class="text-sm text-slate-600 mt-1">御徒町著名的紫色購物中心，零食伴手禮首選。</p>
+                        </li>
+                        <li>
+                            <strong><a href="https://maps.google.com/?cid=9124525651654476405" target="_blank" class="map-link">MEGAドン・キホーテ 渋谷本店</a></strong>
+                            <p class="text-sm text-slate-600 mt-1">唐吉訶德旗艦店，24小時營業。</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 住宿周邊機能 -->
+                <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
+                    <h3 class="text-xl font-bold mb-3 border-b pb-2">🏪 住宿周邊生活機能</h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <strong>📍 品川プリンスホテル (Day 4-5)</strong>
+                            <p class="text-sm text-slate-600 mt-1">
+                                <span class="font-medium text-slate-800">🏪 超商：</span><a href="https://maps.google.com/?cid=11555218711591392647" target="_blank" class="map-link">セブン-イレブン</a> (Annex Tower 2F)<br>
+                                <span class="font-medium text-slate-800">💊 藥妝：</span><a href="https://maps.google.com/?cid=13832764730077527503" target="_blank" class="map-link">マツモトキヨシ ウィング高輪店</a><br>
+                                <span class="font-medium text-slate-800">🛒 超市：</span><a href="https://maps.google.com/?cid=124109546247094900" target="_blank" class="map-link">京急ストア 品川店</a><br>
+                            </p>
+                        </li>
+                        <li>
+                            <strong>📍 ヒルトン東京お台場 (Day 2-3)</strong>
+                            <p class="text-sm text-slate-600 mt-1">
+                                <span class="font-medium text-slate-800">🏪 超商：</span><a href="https://maps.google.com/?cid=7619256481534029525" target="_blank" class="map-link">ローソン アクアシティお台場店</a><br>
+                                <span class="font-medium text-slate-800">💊 藥妝：</span><a href="https://maps.google.com/?cid=7453913041778296237" target="_blank" class="map-link">マツモトキヨシ</a> (アクアシティお台場)<br>
+                            </p>
                         </li>
                     </ul>
                 </div>
@@ -357,31 +338,25 @@
 
     <!-- JavaScript -->
     <script>
-        // 切換主導覽列
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('bg-blue-800'));
-            
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('bg-emerald-800'));
             document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('bg-blue-800');
-
-            if(tabId === 'overview') initChart(); // 重新渲染圖表以防尺寸跑掉
+            event.target.classList.add('bg-emerald-800');
+            if(tabId === 'overview') initChart(); 
         }
 
-        // 切換每日行程
         function switchDay(dayId) {
             document.querySelectorAll('.day-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.day-btn').forEach(el => {
-                el.classList.remove('bg-blue-100', 'text-blue-800');
+                el.classList.remove('bg-emerald-100', 'text-emerald-800');
                 el.classList.add('bg-slate-100', 'text-slate-600');
             });
-
             document.getElementById(dayId).classList.add('active');
             event.target.classList.remove('bg-slate-100', 'text-slate-600');
-            event.target.classList.add('bg-blue-100', 'text-blue-800');
+            event.target.classList.add('bg-emerald-100', 'text-emerald-800');
         }
 
-        // Chart.js 初始化
         let chartInstance = null;
         function initChart() {
             const ctx = document.getElementById('transportChart').getContext('2d');
@@ -390,25 +365,39 @@
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['成田-富浦', '富浦-東京(巴士)', '品川-成田(NEX)'],
-                    datasets: [{
-                        label: '單程交通花費 (日圓 ¥)',
-                        data: [1980, 2600, 3250],
-                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                        borderColor: 'rgba(59, 130, 246, 1)',
-                        borderWidth: 1
-                    }]
+                    labels: ['品川 ➔ 東京車站', '東京車站 ➔ 江戶城', '江戶城 ➔ 品川神社', '品川神社 ➔ 品川飯店'],
+                    datasets: [
+                        {
+                            label: '計程車預估車資 (日圓 ¥)',
+                            data: [3500, 500, 4000, 1000],
+                            backgroundColor: 'rgba(245, 158, 11, 0.8)',
+                            borderColor: 'rgba(245, 158, 11, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: '大眾運輸預估車資 (需步行轉乘)',
+                            data: [170, 0, 310, 150],
+                            backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     scales: {
                         y: { beginAtZero: true }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '金錢換取體力：Day 5 交通方案對比'
+                        }
                     }
                 }
             });
         }
         
-        // 初始載入圖表
         window.onload = initChart;
     </script>
 </body>
