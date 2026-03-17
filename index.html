@@ -1,396 +1,362 @@
-import React, { useState } from 'react';
-import { 
-  Utensils, MapPin, Star, AlertTriangle, ExternalLink, Calendar, 
-  Moon, BookOpen, ChevronDown, ChevronUp, History, Store, 
-  WashingMachine, Briefcase, Train, Info 
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>孤獨的美食家：品川出差指南</title>
+    
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 載入 React 與 ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- 載入 Babel 以便在瀏覽器中編譯 JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
 
-const categories = [
-  { id: 'ramen', label: '拉麵', icon: '🍜' },
-  { id: 'izakaya', label: '居酒屋', icon: '🍺' },
-  { id: 'yakiniku', label: '燒肉', icon: '🔥' },
-  { id: 'sushi', label: '壽司', icon: '🍣' },
-  { id: 'tokaido', label: '舊東海道', icon: '🏮' },
-  { id: 'nightview', label: '夜景', icon: '🌃' },
-];
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-const restaurants = {
-  ramen: [
-    {
-      id: 'r1',
-      name: "中華蕎麥 响 (Hibiki)",
-      dist: "步行約12分 (北品川)",
-      desc: "五郎會特地走路去吃的那種老街名店。湯頭是純粹的雞油與醬油交織。",
-      story: "隱身在舊東海道的靜謐巷弄中。這裡的湯頭沒有過度華麗的裝飾，而是將小魚乾、雞骨與優質醬油的鮮味提煉到極致。喝下一口熱湯的瞬間，五郎彷彿能看見江戶時代品川宿的旅人們，在這裡歇腳擦汗的幻影。這是一碗吃得出「歷史重量」與「職人靈魂」的拉麵。",
-      pros: "味道極致平衡，能感受到江戶老街的人情味。",
-      cons: "店內極小，且經常提早售罄。",
-      map: "https://www.google.com/maps/search/?api=1&query=中華そば+響+北品川",
-      tag: "靈魂湯頭"
-    },
-    {
-      id: 'r2',
-      name: "せたが屋 (Setagaya) 品川店",
-      dist: "品川站內 (Ecute)",
-      desc: "位於品川站內品川麵達七人眾的王者，交通最便利的魚介系拉麵。",
-      story: "在分秒必爭的品川車站，這裡就像是商務人士的能量補給站。魚介與動物系雙重湯頭的強烈衝擊，撒上特製的魚粉，每一口麵條都緊緊吸附著濃郁的精華。「這種粗獷而直接的美味，正是我現在最需要的！」五郎在心裡吶喊著。這碗麵，是都市叢林中的一劑強心針。",
-      pros: "完全不用出站，魚介湯頭濃厚有勁。",
-      cons: "尖峰時刻人潮眾多，較無悠閒感。",
-      map: "https://www.google.com/maps/search/?api=1&query=せたが屋+品川店",
-      tag: "最強便利"
-    }
-  ],
-  izakaya: [
-    {
-      id: 'i1',
-      name: "もつ焼 煮込 晩 (Ban)",
-      dist: "步行約6分 (港南口巷弄)",
-      desc: "這就是五郎夢寐以求的聖地！從昭和時代流傳下來的燉內臟，氣氛熱騰騰。",
-      story: "品川港南口過去臨近東京的屠宰市場，因此孕育了極其發達的「內臟料理」文化。這家店是真正的勞動階級聖地。牆上被煙燻得發黃的菜單、豪邁的老闆、以及那鍋燉煮了不知多少歲月的「牛雜燉(煮込み)」。咬下那口肥美多汁的烤大腸時，五郎的表情絕對是閉上雙眼、細細品味的極樂模樣。",
-      pros: "CP值爆表，燉煮內臟軟爛入味，氣氛極佳。",
-      cons: "環境簡陋，衣服會沾染炭烤味。",
-      map: "https://www.google.com/maps/search/?api=1&query=もつ焼+晩+品川",
-      tag: "五郎聖地"
-    },
-    {
-      id: 'i2',
-      name: "酒藏 駒八 (Komahachi)",
-      dist: "步行約7分 (港南口)",
-      desc: "品川知名的老牌居酒屋，服務員阿姨們的熱情會讓出差的孤獨感瞬間消失。",
-      story: "這是一間充滿昭和人情味的居酒屋。沒有華麗的擺盤，只有如同母親般親切的店員阿姨和一道道扎實的下酒菜。「厚切火腿排」、「自製馬鈴薯沙拉」，這些B級美食在此刻卻比任何高級料理都來得美味。「啊，這就是生活啊。」五郎一邊咬著火腿排，一邊配著烏龍茶在心裡感嘆。",
-      pros: "充滿家的味道，炸豆腐與烤魚是經典。",
-      cons: "室內吸煙區比例可能較高。",
-      map: "https://www.google.com/maps/search/?api=1&query=駒八+品川",
-      tag: "人情味十足"
-    }
-  ],
-  yakiniku: [
-    {
-      id: 'y1',
-      name: "敘敘苑 (品川王子大飯店店)",
-      dist: "就在您飯店內！",
-      desc: "最穩定的燒肉王者。如果您累到不想走出門，這裡就是天堂。",
-      story: "有時候出差累到極點，連走到車站對面都嫌遠。這時，飯店附設的敘敘苑就是終極救贖。穿著拖鞋下樓（不，還是要換上便服），走進優雅的包廂。看著那擁有完美大理石紋路的霜降和牛在無煙烤爐上滋滋作響，沾上秘製烤肉醬配上白飯，這是獨屬於大人的奢侈犒賞。",
-      pros: "服務完美，肉質極佳，完全不用交通時間。",
-      cons: "單價偏高，缺乏巷弄探險的樂趣。",
-      map: "https://www.google.com/maps/search/?api=1&query=叙々苑+品川プリンスホテル店",
-      tag: "極致便利"
-    },
-    {
-      id: 'y2',
-      name: "一頭買燒肉 逸都 (Itto)",
-      dist: "步行約8分 (港南口)",
-      desc: "整頭牛購買所以能提供極具競爭力的價格與多樣部位。",
-      story: "位於充滿上班族的商辦區內，逸都主打「一頭買（買下整頭牛）」，因此能以驚人的價格提供高品質的和牛。這裡的份量絕不含糊，非常適合飢腸轆轆的胃。對五郎來說，看著滿桌的紅肉與內臟，獨自一人掌控著烤網的火候，這就是最棒的孤獨時光。",
-      pros: "CP值在燒肉界非常能打，肉厚多汁。",
-      cons: "位置在商辦大樓內，稍微缺少一點路邊攤的風情。",
-      map: "https://www.google.com/maps/search/?api=1&query=一頭買焼肉+逸都+品川",
-      tag: "超高CP值"
-    }
-  ],
-  sushi: [
-    {
-      id: 's1',
-      name: "壽司美登利 (立食部 Ecute)",
-      dist: "品川站內",
-      desc: "排隊名店美登利的立食版，適合像五郎一樣快速解決但要求高品質的人。",
-      story: "「立食」原本就是江戶時代壽司的雛形——快餐。美登利將這種傳統與極致的性價比結合。肥美的鮪魚大腹、滿溢出來的海膽軍艦，雖然沒有座位，但入口瞬間的感動絕不打折。對五郎來說，這就像是繁忙出差日程中的一次「美味突襲」，迅速、準確且致命地滿足了味蕾。",
-      pros: "單價極低但品質極高，食材分量大。",
-      cons: "必須站著吃，且排隊人潮幾乎不曾間斷。",
-      map: "https://www.google.com/maps/search/?api=1&query=寿司美登利+エキュート品川",
-      tag: "排隊名店"
-    },
-    {
-      id: 's2',
-      name: "壽司田 (Wing Takanawa)",
-      dist: "步行約3分 (飯店對面)",
-      desc: "位於高輪口的Wing百貨內，環境優雅安靜，適合慢慢享受。",
-      story: "從品川王子大飯店走出來過個馬路就到。店內沒有居酒屋的喧囂，只有優雅的和風裝潢與沈穩的氛圍。這裡的套餐設計精緻，非常適合經過一天高壓會議後，想要一個人靜靜地、慢慢地品味海鮮甘甜的夜晚。「不用動腦筋點菜的套餐，有時候也是一種溫柔啊。」",
-      pros: "離飯店極近，氣氛安靜，適合商務晚餐。",
-      cons: "比較中規中矩，缺乏「驚艷感」。",
-      map: "https://www.google.com/maps/search/?api=1&query=寿司田+ウィング高輪",
-      tag: "優雅環境"
-    }
-  ],
-  tokaido: [
-    {
-      id: 'tk1',
-      name: "北品川 長壽庵 (Chojuan)",
-      dist: "步行約12分 (舊東海道)",
-      desc: "傳承江戶時代蕎麥麵手藝的老舖，感受驛站町的庶民日常。",
-      story: "江戶時代的旅人在出發或抵達時，總會來一碗熱騰騰的蕎麥麵。長壽庵保留了昭和初期的復古外觀，走進去彷彿時間靜止。招牌的鴨肉蔥段蕎麥麵（鴨南蛮），高湯的香氣與蕎麥的嚼勁，是五郎在奔波後最溫和的撫慰。「吸溜吸溜地吃麵，這才是江戶仔的浪漫啊！」",
-      pros: "價格親民，充滿濃厚的下町人情味與歷史感。",
-      cons: "營業時間較早結束，午餐時段常需排隊。",
-      map: "https://www.google.com/maps/search/?api=1&query=北品川+長寿庵",
-      tag: "江戶蕎麥"
-    },
-    {
-      id: 'tk2',
-      name: "屋形船 船清 (Funasei)",
-      dist: "步行約15分 (品川浦)",
-      desc: "品川獨有的歷史水路體驗，在屋形船上品嚐現炸天婦羅。",
-      story: "品川自古便是漁港，屋形船文化在此繁榮。雖然五郎通常是一個人吃飯，但偶爾犒賞自己，預約單人也可搭乘的乘船方案。看著窗外東京灣的夜景，吃著剛從油鍋撈起的江戶前天婦羅（星鰻、鱚魚），配上冰涼的烏龍茶。「在水上吃天婦羅，江戶時代的大老爺們也不過如此吧。」",
-      pros: "絕無僅有的江戶水上風情，天婦羅極致美味。",
-      cons: "必須事先預約，有固定船班時間，單價較高。",
-      map: "https://www.google.com/maps/search/?api=1&query=屋形船+船清",
-      tag: "水上天婦羅"
-    },
-    {
-      id: 'tk3',
-      name: "品川菓匠 孝庵 (Kouan)",
-      dist: "步行約10分 (北品川)",
-      desc: "舊東海道上的和菓子名店，極度適合買回飯店當作深夜甜點。",
-      story: "吃完正餐，五郎的甜點胃總會準時開啟。孝庵位於舊東海道的中心，其招牌「宿場卷」等傳統點心，是過去旅人隨身攜帶的乾糧改良而來。買幾塊櫻餅或大福，帶回品川王子的房間，配著熱茶，看著窗外夜景，這才算完美結束一天的出差行程。",
-      pros: "甜度適中不膩口，非常適合當伴手禮帶回台灣。",
-      cons: "太晚去熱門的當季品項會售罄。",
-      map: "https://www.google.com/maps/search/?api=1&query=品川菓匠+孝庵",
-      tag: "宿場和菓子"
-    }
-  ],
-  nightview: [
-    {
-      id: 'n1',
-      name: "TABLE 9 TOKYO",
-      dist: "飯店頂樓 (39F)",
-      desc: "品川最高的景觀餐廳。由九個不同區域組成，2026年仍是東京地標。",
-      story: "身為一個低調的大叔，五郎或許對這種過於時尚的地方感到有些不自在，但不可否認，從39樓俯瞰整個東京灣與東京鐵塔的壯麗景色，加上頂級和牛與精緻法菜，絕對會讓他發出驚嘆。這是一個即使一個人來，也會被窗外閃爍的「東京光毯」所感動的絕佳地點。",
-      pros: "270度俯瞰東京，燈火就在腳下，環境奢華。",
-      cons: "價位極高，較適合喝調酒看夜景而非大啖美食。",
-      map: "https://www.google.com/maps/search/?api=1&query=TABLE+9+TOKYO+品川",
-      tag: "夢幻夜景"
-    },
-    {
-      id: 'n2',
-      name: "T.Y.HARBOR",
-      dist: "接駁車或步行約15分 (天王洲)",
-      desc: "水邊的釀酒廠餐廳。2026年這裡的運河夜景依然是品川最浪漫的地方。",
-      story: "從品川站漫步到天王洲島，沿著運河邊的木棧道散步，是東京少有的愜意。這間由舊倉庫改建的餐廳，旁邊就是微波蕩漾的運河。手工釀造的精釀啤酒配上美式大份量漢堡或烤肋排。吹著海風，看著對岸大樓的燈光倒影在水面上，「今天的疲勞，就這樣被晚風吹散了吧。」",
-      pros: "運河美景、自家釀造啤酒，空間感開闊。",
-      cons: "距離車站稍遠，步行需一段時間。",
-      map: "https://www.google.com/maps/search/?api=1&query=TY+HARBOR+天王洲",
-      tag: "運河浪漫"
-    }
-  ]
-};
+        // --- 圖示庫 (替換原本的 Lucide 外部套件，確保單檔可執行) ---
+        const Icon = ({ path, size = 24, className = "" }) => (
+            <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{__html: path}} />
+        );
+        const MapPin = (p) => <Icon {...p} path='<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>' />;
+        const Star = (p) => <Icon {...p} path='<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>' />;
+        const AlertTriangle = (p) => <Icon {...p} path='<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>' />;
+        const ExternalLink = (p) => <Icon {...p} path='<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>' />;
+        const Calendar = (p) => <Icon {...p} path='<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>' />;
+        const Moon = (p) => <Icon {...p} path='<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>' />;
+        const BookOpen = (p) => <Icon {...p} path='<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>' />;
+        const ChevronDown = (p) => <Icon {...p} path='<polyline points="6 9 12 15 18 9"></polyline>' />;
+        const ChevronUp = (p) => <Icon {...p} path='<polyline points="18 15 12 9 6 15"></polyline>' />;
+        const HistoryIcon = (p) => <Icon {...p} path='<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path>' />;
+        const Store = (p) => <Icon {...p} path='<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path><path d="M2 9.782v-.44a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.44a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"></path>' />;
+        const WashingMachine = (p) => <Icon {...p} path='<path d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Z"></path><path d="M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M8 7h.01"></path><path d="M11 7h.01"></path>' />;
+        const Briefcase = (p) => <Icon {...p} path='<rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>' />;
+        const Train = (p) => <Icon {...p} path='<rect width="16" height="16" x="4" y="3" rx="2"></rect><path d="M4 11h16"></path><path d="M12 3v8"></path><path d="m8 19-2 3"></path><path d="m18 22-2-3"></path><path d="M8 15h0"></path><path d="M16 15h0"></path>' />;
+        const Info = (p) => <Icon {...p} path='<circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path>' />;
+        const Navigation = (p) => <Icon {...p} path='<polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>' />;
 
-const App = () => {
-  const [activeTab, setActiveTab] = useState('tokaido');
-  const [expandedCard, setExpandedCard] = useState(null);
+        const categories = [
+            { id: 'tokaido', label: '舊東海道', icon: '🏮' },
+            { id: 'ramen', label: '拉麵', icon: '🍜' },
+            { id: 'izakaya', label: '居酒屋', icon: '🍺' },
+            { id: 'yakiniku', label: '燒肉', icon: '🔥' },
+            { id: 'sushi', label: '壽司', icon: '🍣' },
+            { id: 'nightview', label: '夜景', icon: '🌃' },
+        ];
 
-  const toggleExpand = (id) => {
-    setExpandedCard(expandedCard === id ? null : id);
-  };
+        const restaurants = {
+            ramen: [
+                { id: 'r1', name: "中華蕎麥 响 (Hibiki)", dist: "步行約12分 (北品川)", desc: "五郎會特地走路去吃的那種老街名店。湯頭是純粹的雞油與醬油交織。", story: "隱身在舊東海道的靜謐巷弄中。這裡的湯頭沒有過度華麗的裝飾，而是將小魚乾、雞骨與優質醬油的鮮味提煉到極致。喝下一口熱湯的瞬間，五郎彷彿能看見江戶時代品川宿的旅人們，在這裡歇腳擦汗的幻影。這是一碗吃得出「歷史重量」與「職人靈魂」的拉麵。", pros: "味道極致平衡，能感受到江戶老街的人情味。", cons: "店內極小，且經常提早售罄。", map: "https://www.google.com/maps/search/?api=1&query=中華そば+響+北品川", tag: "靈魂湯頭" },
+                { id: 'r2', name: "せたが屋 (Setagaya) 品川店", dist: "品川站內 (Ecute)", desc: "位於品川站內品川麵達七人眾的王者，交通最便利的魚介系拉麵。", story: "在分秒必爭的品川車站，這裡就像是商務人士的能量補給站。魚介與動物系雙重湯頭的強烈衝擊，撒上特製的魚粉，每一口麵條都緊緊吸附著濃郁的精華。「這種粗獷而直接的美味，正是我現在最需要的！」五郎在心裡吶喊著。這碗麵，是都市叢林中的一劑強心針。", pros: "完全不用出站，魚介湯頭濃厚有勁。", cons: "尖峰時刻人潮眾多，較無悠閒感。", map: "https://www.google.com/maps/search/?api=1&query=せたが屋+品川店", tag: "最強便利" }
+            ],
+            izakaya: [
+                { id: 'i1', name: "もつ焼 煮込 晩 (Ban)", dist: "步行約6分 (港南口巷弄)", desc: "這就是五郎夢寐以求的聖地！從昭和時代流傳下來的燉內臟，氣氛熱騰騰。", story: "品川港南口過去臨近東京的屠宰市場，因此孕育了極其發達的「內臟料理」文化。這家店是真正的勞動階級聖地。牆上被煙燻得發黃的菜單、豪邁的老闆、以及那鍋燉煮了不知多少歲月的「牛雜燉(煮込み)」。咬下那口肥美多汁的烤大腸時，五郎的表情絕對是閉上雙眼、細細品味的極樂模樣。", pros: "CP值爆表，燉煮內臟軟爛入味，氣氛極佳。", cons: "環境簡陋，衣服會沾染炭烤味。", map: "https://www.google.com/maps/search/?api=1&query=もつ焼+晩+品川", tag: "五郎聖地" },
+                { id: 'i2', name: "酒藏 駒八 (Komahachi)", dist: "步行約7分 (港南口)", desc: "品川知名的老牌居酒屋，服務員阿姨們的熱情會讓出差的孤獨感瞬間消失。", story: "這是一間充滿昭和人情味的居酒屋。沒有華麗的擺盤，只有如同母親般親切的店員阿姨和一道道扎實的下酒菜。「厚切火腿排」、「自製馬鈴薯沙拉」，這些B級美食在此刻卻比任何高級料理都來得美味。「啊，這就是生活啊。」五郎一邊咬著火腿排，一邊配著烏龍茶在心裡感嘆。", pros: "充滿家的味道，炸豆腐與烤魚是經典。", cons: "室內吸煙區比例可能較高。", map: "https://www.google.com/maps/search/?api=1&query=駒八+品川", tag: "人情味十足" }
+            ],
+            yakiniku: [
+                { id: 'y1', name: "敘敘苑 (品川王子大飯店店)", dist: "就在您飯店內！", desc: "最穩定的燒肉王者。如果您累到不想走出門，這裡就是天堂。", story: "有時候出差累到極點，連走到車站對面都嫌遠。這時，飯店附設的敘敘苑就是終極救贖。穿著拖鞋下樓（不，還是要換上便服），走進優雅的包廂。看著那擁有完美大理石紋路的霜降和牛在無煙烤爐上滋滋作響，沾上秘製烤肉醬配上白飯，這是獨屬於大人的奢侈犒賞。", pros: "服務完美，肉質極佳，完全不用交通時間。", cons: "單價偏高，缺乏巷弄探險的樂趣。", map: "https://www.google.com/maps/search/?api=1&query=叙々苑+品川プリンスホテル店", tag: "極致便利" },
+                { id: 'y2', name: "一頭買燒肉 逸都 (Itto)", dist: "步行約8分 (港南口)", desc: "整頭牛購買所以能提供極具競爭力的價格與多樣部位。", story: "位於充滿上班族的商辦區內，逸都主打「一頭買（買下整頭牛）」，因此能以驚人的價格提供高品質的和牛。這裡的份量絕不含糊，非常適合飢腸轆轆的胃。對五郎來說，看著滿桌的紅肉與內臟，獨自一人掌控著烤網的火候，這就是最棒的孤獨時光。", pros: "CP值在燒肉界非常能打，肉厚多汁。", cons: "位置在商辦大樓內，稍微缺少一點路邊攤的風情。", map: "https://www.google.com/maps/search/?api=1&query=一頭買焼肉+逸都+品川", tag: "超高CP值" }
+            ],
+            sushi: [
+                { id: 's1', name: "壽司美登利 (立食部 Ecute)", dist: "品川站內", desc: "排隊名店美登利的立食版，適合像五郎一樣快速解決但要求高品質的人。", story: "「立食」原本就是江戶時代壽司的雛形——快餐。美登利將這種傳統與極致的性價比結合。肥美的鮪魚大腹、滿溢出來的海膽軍艦，雖然沒有座位，但入口瞬間的感動絕不打折。對五郎來說，這就像是繁忙出差日程中的一次「美味突襲」，迅速、準確且致命地滿足了味蕾。", pros: "單價極低但品質極高，食材分量大。", cons: "必須站著吃，且排隊人潮幾乎不曾間斷。", map: "https://www.google.com/maps/search/?api=1&query=寿司美登利+エキュート品川", tag: "排隊名店" },
+                { id: 's2', name: "壽司田 (Wing Takanawa)", dist: "步行約3分 (飯店對面)", desc: "位於高輪口的Wing百貨內，環境優雅安靜，適合慢慢享受。", story: "從品川王子大飯店走出來過個馬路就到。店內沒有居酒屋的喧囂，只有優雅的和風裝潢與沈穩的氛圍。這裡的套餐設計精緻，非常適合經過一天高壓會議後，想要一個人靜靜地、慢慢地品味海鮮甘甜的夜晚。「不用動腦筋點菜的套餐，有時候也是一種溫柔啊。」", pros: "離飯店極近，氣氛安靜，適合商務晚餐。", cons: "比較中規中矩，缺乏「驚艷感」。", map: "https://www.google.com/maps/search/?api=1&query=寿司田+ウィング高輪", tag: "優雅環境" }
+            ],
+            tokaido: [
+                { id: 'tk1', name: "北品川 長壽庵 (Chojuan)", dist: "步行約12分 (舊東海道)", desc: "傳承江戶時代蕎麥麵手藝的老舖，感受驛站町的庶民日常。", story: "江戶時代的旅人在出發或抵達時，總會來一碗熱騰騰的蕎麥麵。長壽庵保留了昭和初期的復古外觀，走進去彷彿時間靜止。招牌的鴨肉蔥段蕎麥麵（鴨南蛮），高湯的香氣與蕎麥的嚼勁，是五郎在奔波後最溫和的撫慰。「吸溜吸溜地吃麵，這才是江戶仔の浪漫啊！」", pros: "價格親民，充滿濃厚的下町人情味與歷史感。", cons: "營業時間較早結束，午餐時段常需排隊。", map: "https://www.google.com/maps/search/?api=1&query=北品川+長寿庵", tag: "江戶蕎麥" },
+                { id: 'tk2', name: "屋形船 船清 (Funasei)", dist: "步行約15分 (品川浦)", desc: "品川獨有的歷史水路體驗，在屋形船上品嚐現炸天婦羅。", story: "品川自古便是漁港，屋形船文化在此繁榮。雖然五郎通常是一個人吃飯，但偶爾犒賞自己，預約單人也可搭乘的乘船方案。看著窗外東京灣的夜景，吃著剛從油鍋撈起的江戶前天婦羅（星鰻、鱚魚），配上冰涼的烏龍茶。「在水上吃天婦羅，江戶時代的大老爺們也不過如此吧。」", pros: "絕無僅有的江戶水上風情，天婦羅極致美味。", cons: "必須事先預約，有固定船班時間，單價較高。", map: "https://www.google.com/maps/search/?api=1&query=屋形船+船清", tag: "水上天婦羅" },
+                { id: 'tk3', name: "品川菓匠 孝庵 (Kouan)", dist: "步行約10分 (北品川)", desc: "舊東海道上的和菓子名店，極度適合買回飯店當作深夜甜點。", story: "吃完正餐，五郎的甜點胃總會準時開啟。孝庵位於舊東海道的中心，其招牌「宿場卷」等傳統點心，是過去旅人隨身攜帶的乾糧改良而來。買幾塊櫻餅或大福，帶回品川王子的房間，配著熱茶，看著窗外夜景，這才算完美結束一天的出差行程。", pros: "甜度適中不膩口，非常適合當伴手禮帶回台灣。", cons: "太晚去熱門的當季品項會售罄。", map: "https://www.google.com/maps/search/?api=1&query=品川菓匠+孝庵", tag: "宿場和菓子" }
+            ],
+            nightview: [
+                { id: 'n1', name: "TABLE 9 TOKYO", dist: "飯店頂樓 (39F)", desc: "品川最高的景觀餐廳。由九個不同區域組成，2026年仍是東京地標。", story: "身為一個低調的大叔，五郎或許對這種過於時尚的地方感到有些不自在，但不可否認，從39樓俯瞰整個東京灣與東京鐵塔的壯麗景色，加上頂級和牛與精緻法菜，絕對會讓他發出驚嘆。這是一個即使一個人來，也會被窗外閃爍的「東京光毯」所感動的絕佳地點。", pros: "270度俯瞰東京，燈火就在腳下，環境奢華。", cons: "價位極高，較適合喝調酒看夜景而非大啖美食。", map: "https://www.google.com/maps/search/?api=1&query=TABLE+9+TOKYO+品川", tag: "夢幻夜景" },
+                { id: 'n2', name: "T.Y.HARBOR", dist: "接駁車或步行約15分 (天王洲)", desc: "水邊的釀酒廠餐廳。2026年這裡的運河夜景依然是品川最浪漫的地方。", story: "從品川站漫步到天王洲島，沿著運河邊的木棧道散步，是東京少有的愜意。這間由舊倉庫改建的餐廳，旁邊就是微波蕩漾的運河。手工釀造的精釀啤酒配上美式大份量漢堡或烤肋排。吹著海風，看著對岸大樓的燈光倒影在水面上，「今天的疲勞，就這樣被晚風吹散了吧。」", pros: "運河美景、自家釀造啤酒，空間感開闊。", cons: "距離車站稍遠，步行需一段時間。", map: "https://www.google.com/maps/search/?api=1&query=TY+HARBOR+天王洲", tag: "運河浪漫" }
+            ]
+        };
 
-  return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8">
-      {/* Header */}
-      <div className="max-w-6xl mx-auto mb-8 text-center">
-        <div className="inline-flex items-center justify-center space-x-2 bg-indigo-600 text-white px-4 py-1 rounded-full mb-4 text-sm font-bold animate-pulse">
-          <Calendar size={16} />
-          <span>2026.03 出差預報：品川停留中</span>
-        </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">
-          孤獨的美食家：品川出差指南
-        </h1>
-        <p className="text-slate-600 max-w-2xl mx-auto text-lg italic">
-          「喔喔，肚子餓了...品川這座不夜城，隱藏著多少能填飽孤獨靈魂的寶藏呢？」
-        </p>
-      </div>
+        const App = () => {
+            const [expandedCard, setExpandedCard] = useState(null);
+            const [activeNav, setActiveNav] = useState('');
 
-      {/* Historical Context Card (Enhanced) */}
-      <div className="max-w-6xl mx-auto mb-10 bg-amber-50 p-6 md:p-8 rounded-3xl shadow-sm border border-amber-200 relative overflow-hidden">
-        <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
-          <History size={200} />
-        </div>
-        <div className="relative z-10">
-          <div className="flex items-center space-x-3 mb-4 text-amber-800">
-            <History size={28} />
-            <h2 className="text-2xl font-bold">穿越江戶：舊東海道與品川宿</h2>
-          </div>
-          <p className="text-amber-900 leading-relaxed text-justify md:text-lg mb-4">
-            現代的品川站充斥著新幹線與穿著西裝的商務菁英，但只要往南側（北品川、新馬場一帶）走幾分鐘，時光就會瞬間倒流。在江戶時代，這裡是連接江戶（東京）與京都的「東海道五十三次」中的第一個驛站——<strong>「品川宿」</strong>。
-          </p>
-          <p className="text-amber-900 leading-relaxed text-justify md:text-lg mb-4">
-            當時的旅人從日本橋出發，第一晚往往在品川落腳。這裡曾設有供大名（諸侯）住宿的<strong>「本陣」</strong>，以及繁華的茶屋與遊廓。沿著<strong>「舊東海道」</strong>的街道，至今依然保留著江戶時代規定的街道寬度（約7公尺）。
-          </p>
-          <div className="bg-white/60 p-4 rounded-xl border border-amber-200/50 mt-4">
-            <p className="text-amber-900 font-bold mb-2">🏮 歷史巡禮推薦：</p>
-            <ul className="list-disc list-inside text-amber-900 space-y-1 text-sm md:text-base">
-              <li><strong>品川神社：</strong> 擁有罕見的雙龍鳥居，境內有一座迷你的「品川富士（富士塚）」，登頂象徵爬過富士山，是祈求出差順利的絕佳能量景點。</li>
-              <li><strong>品川浦（屋形船泊地）：</strong> 過去品川是著名的漁村，至今仍停泊著許多屋形船，保留了江戶水鄉的面貌。</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+            const toggleExpand = (id) => {
+                setExpandedCard(expandedCard === id ? null : id);
+            };
 
-      {/* Hotel & Facilities Grid */}
-      <div className="max-w-6xl mx-auto mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Hotel Card */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col justify-center">
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="bg-indigo-100 p-3 rounded-xl text-indigo-600">
-              <Moon size={32} />
-            </div>
-            <div className="text-left">
-              <h2 className="font-bold text-2xl text-slate-800">品川王子大飯店</h2>
-              <p className="text-slate-500 font-medium">Shinagawa Prince Hotel (高輪口)</p>
-            </div>
-          </div>
-          <p className="text-slate-600 mb-4">
-            擁有四棟大樓的巨型飯店城，西側高輪口的核心地標。不但距離新幹線極近，館內設施幾乎等同於一個小型城市。
-          </p>
-          <div className="mt-auto">
-            <a href="https://www.google.com/maps/search/?api=1&query=品川プリンスホテル" target="_blank" rel="noreferrer" className="inline-flex items-center text-indigo-600 font-bold hover:text-indigo-800 bg-indigo-50 px-4 py-2 rounded-lg transition-colors">
-              <MapPin size={18} className="mr-2" />
-              開啟飯店 Google Map
-            </a>
-          </div>
-        </div>
+            const scrollToSection = (id) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const yOffset = -100;
+                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                    setActiveNav(id);
+                }
+            };
 
-        {/* Local Facilities Card */}
-        <div className="bg-slate-800 text-white p-6 rounded-3xl shadow-sm border border-slate-700">
-          <h3 className="font-bold text-lg mb-4 text-indigo-300 flex items-center">
-            <Info size={20} className="mr-2" />
-            周邊生活機能指南
-          </h3>
-          <ul className="space-y-4 text-sm">
-            <li className="flex items-start">
-              <Store size={18} className="mr-3 text-emerald-400 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong className="block text-slate-200">24H 便利商店</strong>
-                <span className="text-slate-400">飯店附屬塔樓 (Annex Tower) 2樓就有一間極大的 7-Eleven，出差買宵夜或應急用品完全不用出室外。</span>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <WashingMachine size={18} className="mr-3 text-blue-400 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong className="block text-slate-200">自助洗衣 (Coin Laundry)</strong>
-                <span className="text-slate-400">主塔樓 (Main Tower) 設有投幣式洗衣機房。可在電視螢幕查看洗衣機使用狀態，非常適合3天2夜的出差換洗。</span>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <Briefcase size={18} className="mr-3 text-rose-400 flex-shrink-0 mt-0.5" />
-              <div>
-                <strong className="block text-slate-200">藥妝與日常採購</strong>
-                <span className="text-slate-400">車站對面的 Wing 高輪百貨內有松本清藥妝店，品川站內的 Ecute 亦有多家高級便當與熟食店。</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+            useEffect(() => {
+                const handleScroll = () => {
+                    const sections = categories.map(c => document.getElementById(c.id));
+                    const scrollPosition = window.scrollY + 120;
 
-      {/* Tabs */}
-      <div className="max-w-6xl mx-auto mb-8">
-        <div className="flex overflow-x-auto pb-2 scrollbar-hide space-x-2 justify-start md:justify-center">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveTab(cat.id)}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-xl transition-all whitespace-nowrap font-bold ${
-                activeTab === cat.id
-                  ? 'bg-indigo-600 text-white shadow-lg scale-105'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-              }`}
-            >
-              <span>{cat.icon}</span>
-              <span>{cat.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+                    for (let i = sections.length - 1; i >= 0; i--) {
+                        const section = sections[i];
+                        if (section && section.offsetTop <= scrollPosition) {
+                            setActiveNav(categories[i].id);
+                            break;
+                        }
+                    }
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
 
-      {/* Content Grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {restaurants[activeTab].map((shop) => (
-          <div key={shop.id} className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200 group flex flex-col h-full">
-            <div className="p-6 flex flex-col h-full">
-              <div className="flex justify-between items-start mb-4">
-                <span className="bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1 rounded-full">{shop.tag}</span>
-                <span className="text-slate-400 text-xs flex items-center"><MapPin size={12} className="mr-1" />{shop.dist}</span>
-              </div>
-              <h3 className="text-xl font-bold mb-3 group-hover:text-indigo-600 transition-colors">{shop.name}</h3>
-              <p className="text-slate-600 text-sm mb-4 leading-relaxed font-medium">
-                {shop.desc}
-              </p>
-              
-              {/* Expandable Story Section */}
-              <div className="mb-6 flex-grow">
-                <button 
-                  onClick={() => toggleExpand(shop.id)}
-                  className="w-full flex items-center justify-between text-indigo-600 font-bold text-sm bg-indigo-50/50 p-3 rounded-lg hover:bg-indigo-50 transition-colors"
-                >
-                  <span className="flex items-center"><BookOpen size={16} className="mr-2"/> 五郎的探店筆記</span>
-                  {expandedCard === shop.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </button>
-                
-                {expandedCard === shop.id && (
-                  <div className="mt-3 p-4 bg-slate-50 rounded-xl text-slate-700 text-sm leading-relaxed italic border-l-4 border-indigo-300 animate-fadeIn">
-                    「{shop.story}」
-                  </div>
-                )}
-              </div>
-              
-              <div className="space-y-4 mb-6 pt-4 border-t border-slate-100">
-                <div className="flex items-start text-xs">
-                  <Star size={14} className="text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                  <div><span className="font-bold text-green-600">優點：</span>{shop.pros}</div>
+            return (
+                <div className="min-h-screen font-sans pb-16 scroll-smooth">
+                    
+                    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all">
+                        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+                            <div className="hidden md:flex items-center space-x-2 text-indigo-800 font-extrabold text-lg">
+                                <Navigation size={20} />
+                                <span>品川指南</span>
+                            </div>
+                            <div className="flex overflow-x-auto scrollbar-hide space-x-2 w-full md:w-auto md:justify-center">
+                                <button onClick={() => scrollToSection('top')} className="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">
+                                    Top
+                                </button>
+                                {categories.map((cat) => (
+                                    <button
+                                        key={cat.id}
+                                        onClick={() => scrollToSection(cat.id)}
+                                        className={`flex-shrink-0 flex items-center space-x-1 px-4 py-2 rounded-full text-sm font-bold transition-all ${
+                                            activeNav === cat.id
+                                                ? 'bg-indigo-600 text-white shadow-md scale-105'
+                                                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+                                        }`}
+                                    >
+                                        <span>{cat.icon}</span>
+                                        <span>{cat.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div id="top" className="p-4 md:p-8">
+                        <div className="max-w-6xl mx-auto mb-12 text-center pt-8">
+                            <div className="inline-flex items-center justify-center space-x-2 bg-indigo-600 text-white px-5 py-2 rounded-full mb-6 text-sm font-bold shadow-lg animate-pulse">
+                                <Calendar size={16} />
+                                <span>2026.03 出差預報：品川停留中</span>
+                            </div>
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 mb-6 tracking-tight">
+                                孤獨的美食家：品川出差指南
+                            </h1>
+                            <p className="text-slate-600 max-w-2xl mx-auto text-lg md:text-xl italic">
+                                「喔喔，肚子餓了...品川這座不夜城，隱藏著多少能填飽孤獨靈魂的寶藏呢？」
+                            </p>
+                        </div>
+
+                        <div className="max-w-6xl mx-auto mb-10 bg-gradient-to-br from-amber-50 to-orange-50 p-6 md:p-10 rounded-[2rem] shadow-sm border border-amber-200 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4 pointer-events-none">
+                                <HistoryIcon size={240} />
+                            </div>
+                            <div className="relative z-10">
+                                <div className="flex items-center space-x-3 mb-6 text-amber-800">
+                                    <HistoryIcon size={32} />
+                                    <h2 className="text-2xl md:text-3xl font-bold">穿越江戶：舊東海道與品川宿</h2>
+                                </div>
+                                <p className="text-amber-900 leading-relaxed text-justify md:text-lg mb-4">
+                                    現代的品川站充斥著新幹線與穿著西裝的商務菁英，但只要往南側（北品川、新馬場一帶）走幾分鐘，時光就會瞬間倒流。在江戶時代，這裡是連接江戶（東京）與京都的「東海道五十三次」中的第一個驛站——<strong>「品川宿」</strong>。
+                                </p>
+                                <p className="text-amber-900 leading-relaxed text-justify md:text-lg mb-6">
+                                    當時的旅人從日本橋出發，第一晚往往在品川落腳。這裡曾設有供大名（諸侯）住宿的<strong>「本陣」</strong>，以及繁華的茶屋與遊廓。沿著<strong>「舊東海道」</strong>的街道，至今依然保留著江戶時代規定的街道寬度（約7公尺）。
+                                </p>
+                                <div className="bg-white/60 p-5 rounded-2xl border border-amber-200/50 backdrop-blur-sm">
+                                    <p className="text-amber-900 font-bold mb-3 text-lg">🏮 歷史巡禮推薦：</p>
+                                    <ul className="list-disc list-inside text-amber-900 space-y-2 md:text-base">
+                                        <li><strong>品川神社：</strong> 擁有罕見的雙龍鳥居，境內有一座迷你的「品川富士（富士塚）」，登頂象徵爬過富士山，是祈求出差順利的絕佳能量景點。</li>
+                                        <li><strong>品川浦（屋形船泊地）：</strong> 過去品川是著名的漁村，至今仍停泊著許多屋形船，保留了江戶水鄉的面貌。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="max-w-6xl mx-auto mb-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div className="lg:col-span-2 bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 flex flex-col justify-center">
+                                <div className="flex items-center space-x-4 mb-4">
+                                    <div className="bg-indigo-100 p-4 rounded-2xl text-indigo-600">
+                                        <Moon size={36} />
+                                    </div>
+                                    <div className="text-left">
+                                        <h2 className="font-bold text-2xl md:text-3xl text-slate-800">品川王子大飯店</h2>
+                                        <p className="text-slate-500 font-medium text-lg">Shinagawa Prince Hotel (高輪口)</p>
+                                    </div>
+                                </div>
+                                <p className="text-slate-600 mb-6 text-lg">
+                                    擁有四棟大樓的巨型飯店城，西側高輪口的核心地標。不但距離新幹線極近，館內設施幾乎等同於一個小型城市。
+                                </p>
+                                <div className="mt-auto">
+                                    <a href="https://www.google.com/maps/search/?api=1&query=品川プリンスホテル" target="_blank" rel="noreferrer" className="inline-flex items-center text-white font-bold bg-slate-900 hover:bg-indigo-600 px-6 py-3 rounded-xl transition-colors">
+                                        <MapPin size={20} className="mr-2" />
+                                        開啟飯店 Google Map
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="bg-slate-800 text-white p-6 md:p-8 rounded-[2rem] shadow-lg border border-slate-700">
+                                <h3 className="font-bold text-xl mb-6 text-indigo-300 flex items-center">
+                                    <Info size={24} className="mr-3" />
+                                    周邊生活機能指南
+                                </h3>
+                                <ul className="space-y-6">
+                                    <li className="flex items-start">
+                                        <Store size={22} className="mr-4 text-emerald-400 flex-shrink-0 mt-1" />
+                                        <div>
+                                            <strong className="block text-slate-100 text-lg mb-1">24H 便利商店</strong>
+                                            <span className="text-slate-400 text-sm leading-relaxed block">飯店附屬塔樓 (Annex Tower) 2樓就有一間極大的 7-Eleven，出差買宵夜或應急用品完全不用出室外。</span>
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <WashingMachine size={22} className="mr-4 text-blue-400 flex-shrink-0 mt-1" />
+                                        <div>
+                                            <strong className="block text-slate-100 text-lg mb-1">自助洗衣 (Laundry)</strong>
+                                            <span className="text-slate-400 text-sm leading-relaxed block">主塔樓 (Main Tower) 設有投幣式洗衣機房。可在電視螢幕查看狀態，非常適合3天2夜換洗。</span>
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <Briefcase size={22} className="mr-4 text-rose-400 flex-shrink-0 mt-1" />
+                                        <div>
+                                            <strong className="block text-slate-100 text-lg mb-1">藥妝與日常採購</strong>
+                                            <span className="text-slate-400 text-sm leading-relaxed block">車站對面的 Wing 高輪百貨內有松本清藥妝店，Ecute 亦有多家高級便當與熟食店。</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="max-w-6xl mx-auto space-y-16">
+                            {categories.map((cat) => (
+                                <section id={cat.id} key={cat.id} className="scroll-mt-24">
+                                    <div className="flex items-center mb-8 pb-4 border-b-2 border-slate-100">
+                                        <span className="text-4xl mr-4 bg-white shadow-sm p-3 rounded-2xl">{cat.icon}</span>
+                                        <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight">
+                                            {cat.label} 推薦
+                                        </h2>
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        {restaurants[cat.id].map((shop) => (
+                                            <div key={shop.id} className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-200 group flex flex-col h-full transform hover:-translate-y-1">
+                                                <div className="p-6 flex flex-col h-full">
+                                                    <div className="flex justify-between items-start mb-4">
+                                                        <span className="bg-indigo-50 text-indigo-700 text-xs font-extrabold px-3 py-1.5 rounded-full">{shop.tag}</span>
+                                                        <span className="text-slate-400 text-xs flex items-center bg-slate-50 px-2 py-1 rounded-full"><MapPin size={12} className="mr-1" />{shop.dist}</span>
+                                                    </div>
+                                                    <h3 className="text-xl font-bold mb-3 group-hover:text-indigo-600 transition-colors">{shop.name}</h3>
+                                                    <p className="text-slate-600 text-sm mb-4 leading-relaxed font-medium">
+                                                        {shop.desc}
+                                                    </p>
+                                                    
+                                                    <div className="mb-6 flex-grow">
+                                                        <button 
+                                                            onClick={() => toggleExpand(shop.id)}
+                                                            className="w-full flex items-center justify-between text-indigo-600 font-bold text-sm bg-indigo-50/50 p-3.5 rounded-xl hover:bg-indigo-100 transition-colors"
+                                                        >
+                                                            <span className="flex items-center"><BookOpen size={16} className="mr-2"/> 五郎的探店筆記</span>
+                                                            {expandedCard === shop.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                                                        </button>
+                                                        
+                                                        {expandedCard === shop.id && (
+                                                            <div className="mt-3 p-4 bg-slate-50 rounded-xl text-slate-700 text-sm leading-relaxed italic border-l-4 border-indigo-400 animate-fadeIn">
+                                                                「{shop.story}」
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    
+                                                    <div className="space-y-4 mb-6 pt-5 border-t border-slate-100">
+                                                        <div className="flex items-start text-xs">
+                                                            <Star size={16} className="text-emerald-500 mr-2 mt-0.5 flex-shrink-0" />
+                                                            <div className="leading-relaxed"><span className="font-bold text-emerald-700">優點：</span>{shop.pros}</div>
+                                                        </div>
+                                                        <div className="flex items-start text-xs">
+                                                            <AlertTriangle size={16} className="text-orange-500 mr-2 mt-0.5 flex-shrink-0" />
+                                                            <div className="leading-relaxed"><span className="font-bold text-orange-700">注意：</span>{shop.cons}</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <a 
+                                                        href={shop.map} 
+                                                        target="_blank" 
+                                                        rel="noreferrer"
+                                                        className="w-full bg-slate-100 text-slate-700 py-3.5 rounded-xl flex items-center justify-center font-bold hover:bg-slate-900 hover:text-white transition-all mt-auto"
+                                                    >
+                                                        <ExternalLink size={16} className="mr-2" />
+                                                        Google Map 導航
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+                            ))}
+                        </div>
+
+                        <div className="max-w-6xl mx-auto mt-16 bg-gradient-to-r from-indigo-50 to-blue-50 p-6 md:p-10 rounded-[2rem] border border-indigo-100">
+                            <h2 className="text-2xl md:text-3xl font-bold text-indigo-900 mb-8 flex items-center">
+                                <Train size={32} className="mr-4 text-indigo-600" />
+                                品川出差交通與實用情報
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                <div className="bg-white/80 backdrop-blur p-6 rounded-2xl shadow-sm border border-white">
+                                    <h4 className="font-bold text-slate-800 text-lg mb-3 flex items-center pb-3 border-b border-slate-100">
+                                        <span className="text-2xl mr-2">✈️</span> 機場交通 (京急線)
+                                    </h4>
+                                    <p className="text-slate-600 leading-relaxed">
+                                        品川站是銜接<strong>羽田機場</strong>的最佳轉運點。搭乘京急線的快特列車，最快只需 <strong>11 分鐘</strong> 即可抵達羽田機場。若從成田機場前來，搭乘成田特快 (N'EX) 也可直達品川。
+                                    </p>
+                                </div>
+                                <div className="bg-white/80 backdrop-blur p-6 rounded-2xl shadow-sm border border-white">
+                                    <h4 className="font-bold text-slate-800 text-lg mb-3 flex items-center pb-3 border-b border-slate-100">
+                                        <span className="text-2xl mr-2">🚅</span> 新幹線與商務設施
+                                    </h4>
+                                    <p className="text-slate-600 leading-relaxed">
+                                        東海道新幹線的所有列車（包含最快的「希望號 Nozomi」）皆停靠品川。車站內設有多座 <strong>Station Work</strong> (個人辦公隔離艙)，適合出差途中進行臨時的線上會議。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="max-w-6xl mx-auto mt-12 text-center text-slate-400 text-sm italic border-t border-slate-200 pt-8">
+                            * 註：2026年品川區域持續進行『高輪Gateway開發計畫』，人行道動線可能有變，請隨時留意車站標示。<br/>
+                            * 本指南內容為「孤獨的美食家」情境模擬，建議出發前再次確認店家營業時間。
+                        </div>
+                    </div>
+
+                    <style dangerouslySetInnerHTML={{__html: `
+                        @keyframes fadeIn {
+                            from { opacity: 0; transform: translateY(-5px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                        .animate-fadeIn {
+                            animation: fadeIn 0.3s ease-out forwards;
+                        }
+                        .scrollbar-hide::-webkit-scrollbar {
+                            display: none;
+                        }
+                        .scrollbar-hide {
+                            -ms-overflow-style: none;
+                            scrollbar-width: none;
+                        }
+                    `}} />
                 </div>
-                <div className="flex items-start text-xs">
-                  <AlertTriangle size={14} className="text-orange-500 mr-2 mt-0.5 flex-shrink-0" />
-                  <div><span className="font-bold text-orange-600">注意：</span>{shop.cons}</div>
-                </div>
-              </div>
+            );
+        };
 
-              <a 
-                href={shop.map} 
-                target="_blank" 
-                rel="noreferrer"
-                className="w-full bg-slate-900 text-white py-3 rounded-2xl flex items-center justify-center font-bold hover:bg-indigo-600 transition-colors mt-auto"
-              >
-                <ExternalLink size={16} className="mr-2" />
-                開啟 Google Map
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Travel & Transit Info */}
-      <div className="max-w-6xl mx-auto bg-indigo-50 p-6 md:p-8 rounded-3xl border border-indigo-100 mb-8">
-         <h2 className="text-xl font-bold text-indigo-900 mb-6 flex items-center">
-            <Train size={24} className="mr-3 text-indigo-600" />
-            品川出差交通與實用情報
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             <div className="bg-white p-5 rounded-2xl shadow-sm">
-                <h4 className="font-bold text-slate-800 mb-2 border-b pb-2">✈️ 機場交通 (京急線)</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  品川站是銜接<strong>羽田機場</strong>的最佳轉運點。搭乘京急線的快特列車，最快只需 <strong>11 分鐘</strong> 即可抵達羽田機場。若從成田機場前來，搭乘成田特快 (N'EX) 也可直達品川。
-                </p>
-             </div>
-             <div className="bg-white p-5 rounded-2xl shadow-sm">
-                <h4 className="font-bold text-slate-800 mb-2 border-b pb-2">🚅 新幹線與商務設施</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  東海道新幹線的所有列車（包含最快的「希望號 Nozomi」）皆停靠品川。車站內設有多座 <strong>Station Work</strong> (個人辦公隔離艙)，適合出差途中進行臨時的線上會議或處理緊急郵件。
-                </p>
-             </div>
-          </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto mt-8 text-center text-slate-400 text-sm italic">
-        * 注意：2026年品川區域正在進行『高輪Gateway開發計畫』，部分人行道動線可能有變，建議依照導航行進。
-      </div>
-      
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-5px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out forwards;
-        }
-      `}} />
-    </div>
-  );
-};
-
-export default App;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
