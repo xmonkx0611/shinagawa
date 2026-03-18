@@ -3,79 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通用旅遊行程儀表板 v8.5</title>
+    <title>通用旅遊行程儀表板 v9.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #F5F5F0; /* Light Beige */
-        }
-        .main-nav-active {
-            color: #2D3748; /* Slate Gray Dark */
-            border-bottom-color: #4A90E2; /* A slightly brighter Slate Blue for accent */
-        }
-        .main-nav-item {
-            transition: all 0.2s ease-in-out;
-        }
-        .day-nav-active {
-            background-color: #4A5568; /* Slate Gray */
-            color: white;
-        }
-        .option-tab-active {
-            background-color: #63B3ED; /* Muted Teal */
-            color: white;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -1px;
-            top: 20px;
-            bottom: -20px;
-            width: 2px;
-            background-color: #E2E8F0;
-        }
-        .timeline-item:last-child::before {
-            display: none;
-        }
-        .timeline-icon {
-            position: absolute;
-            left: -16px;
-            top: 10px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #4A5568;
-            color: white;
-            z-index: 10;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            height: 40vh;
-            max-height: 400px;
-        }
-        .seasonal-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .seasonal-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .emphasis {
-            font-weight: 700;
-            color: #2D3748;
-        }
-        .award-card {
-            border-left-width: 4px;
-        }
-    </style>
+<style>
+    body {
+        font-family: 'Noto Sans TC', sans-serif;
+        background-color: #F8FAFC;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        height: 40vh;
+        max-height: 400px;
+    }
+
+    .option-tab-active {
+        background-color: #3B82F6 !important; 
+        color: white !important;
+        box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 23px; 
+        top: 48px;  
+        bottom: -24px; 
+        width: 2px;
+        background-color: #E2E8F0;
+        z-index: 0;
+    }
+    .timeline-item:last-child::before {
+        display: none;
+    }
+
+    .main-nav-active {
+        color: #1E293B;
+        border-bottom: 4px solid #3B82F6;
+        background-color: #EFF6FF;
+    }
+
+    .day-nav-active {
+        background-color: #1E293B !important;
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .emphasis {
+        font-weight: 700;
+        color: #D97706; 
+    }
+
+    .award-card { border-left-width: 6px; }
+    .border-indigo-400 { border-color: #818CF8 !important; }
+    .border-red-400 { border-color: #F87171 !important; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    .highlight-card, .seasonal-card, .award-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .highlight-card:hover, .seasonal-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+</style>
 </head>
 <body class="antialiased text-gray-700">
 
@@ -99,17 +99,13 @@
         
         <section id="overview" class="main-section space-y-8">
             <h2 class="text-3xl font-bold border-b-2 pb-2">行程總覽</h2>
-            
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">每日 Chill 指數分析 (活動 vs. 移動時間)</h3>
-                <p class="text-gray-600 mb-4">此圖表分析每日「活動時間」與「交通移動時間」的佔比。藍色部分越高，代表當日行程越悠閒 (Chill)；紅色部分越高，則代表該日為長途移動日，需做好相應準備。透過此圖，您可以快速掌握整趟旅程的節奏與強度分佈。</p>
-                <div class="chart-container">
-                    <canvas id="overviewChart"></canvas>
-                </div>
+                <p class="text-gray-600 mb-4">此圖表分析每日「活動時間」與「交通移動時間」的佔比。透過此圖，您可以快速掌握整趟旅程的節奏與強度分佈。</p>
+                <div class="chart-container"><canvas id="overviewChart"></canvas></div>
             </div>
             <div id="seasonal-section" class="bg-white p-6 rounded-lg shadow-lg hidden">
                 <h3 class="text-xl font-semibold mb-4">四季亮點速覽</h3>
-                <p class="text-gray-600 mb-6">此地區四季分明，每個季節都有獨特的魅力。以下為您提煉各季節的精華，包含限定的慶典、美食與自然景觀，助您規劃最完美的旅程。</p>
                 <div id="seasonal-highlights" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
             </div>
              <div id="highlights-section" class="bg-white p-6 rounded-lg shadow-lg hidden">
@@ -121,8 +117,7 @@
 
         <section id="themed-guides" class="main-section hidden space-y-8">
             <h2 class="text-3xl font-bold border-b-2 pb-2">主題攻略</h2>
-            <div id="themed-guides-container" class="space-y-8">
-                </div>
+            <div id="themed-guides-container" class="space-y-8"></div>
         </section>
 
         <section id="awards" class="main-section hidden space-y-8">
@@ -200,6 +195,8 @@
         </section>
     </main>
 
+    <!-- 必須確保依序載入：先字典庫、再行程資料、最後才是渲染引擎 -->
+    <script src="places.js"></script>
     <script src="data.js"></script>
     <script src="render.js"></script>
 </body>
